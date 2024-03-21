@@ -3,7 +3,13 @@ class GymBattle extends Battle {
 
     static gym: Gym;
     static index: KnockoutObservable<number> = ko.observable(0);
+
+    static leftIndex: KnockoutObservable<number> = ko.observable(0);
+    static rightIndex: KnockoutObservable<number> = ko.observable(0);
+
     static totalPokemons: KnockoutObservable<number> = ko.observable(0);
+
+
 
     public static pokemonAttack() {
         if (GymRunner.running()) {
@@ -11,25 +17,33 @@ class GymBattle extends Battle {
         }
     }
 
-    public static clickAttack() {
+    public static clickAttack(left) {
         if (GymRunner.running()) {
-            super.clickAttack();
+            super.clickAttack(left);
         }
     }
     /**
      * Award the player with exp, and go to the next pokemon
      */
-    public static defeatPokemon() {
-        this.enemyPokemon().defeat(true);
+    public static defeatPokemon(left = true) {
+        if (left) {
+            this.leftEnemyPokemon().defeat(true);
+            this.leftIndex(this.rightIndex() > this.leftIndex() && this.doubleBattle ? this.rightIndex() + 1 : this.leftIndex() + 1);
+        } else {
+            this.rightEnemyPokemon().defeat(true);
+            this.rightIndex(this.leftIndex() > this.rightIndex() ? this.leftIndex() + 1 : this.rightIndex() + 1);
+        }
+        console.log("left index", this.leftIndex());
+        console.log("right index", this.rightIndex());
 
         // Make gym "route" regionless
         App.game.breeding.progressEggsBattle(this.gym.badgeReward * 3 + 1, GameConstants.Region.none);
-        this.index(this.index() + 1);
 
-        if (this.index() >= this.gym.getPokemonList().length) {
+
+        if (this.leftIndex() >= this.gym.getPokemonList().length && this.rightIndex() >= this.gym.getPokemonList().length) { 
             GymRunner.gymWon(this.gym);
         } else {
-            this.generateNewEnemy();
+            this.generateNewEnemy(left);
         }
         player.lowerItemMultipliers(MultiplierDecreaser.Battle);
     }
@@ -37,16 +51,22 @@ class GymBattle extends Battle {
     /**
      * Reset the counter.
      */
-    public static generateNewEnemy() {
+    public static generateNewEnemy(left = true) {
         this.counter = 0;
-        this.enemyPokemon(PokemonFactory.generateGymPokemon(this.gym, this.index()));
+
+        let index = left ? this.leftIndex() : this.rightIndex();
+        let newPokemon = left ? this.leftEnemyPokemon : this.rightEnemyPokemon;
+
+        if (index < this.gym.getPokemonList().length) {
+            newPokemon(PokemonFactory.generateGymPokemon(this.gym, index))
+        }       
     }
 
     public static pokemonsDefeatedComputable: KnockoutComputed<number> = ko.pureComputed(() => {
-        return GymBattle.index();
+        return Math.max(Math.min(GymBattle.leftIndex(), GymBattle.gym.getPokemonList().length), Math.min(GymBattle.rightIndex(), GymBattle.gym.getPokemonList().length)) -1;
     });
 
     public static pokemonsUndefeatedComputable: KnockoutComputed<number> = ko.pureComputed(() => {
-        return GymBattle.totalPokemons() - GymBattle.index();
+        return GymBattle.totalPokemons() - GymBattle.pokemonsDefeatedComputable()
     })
 }

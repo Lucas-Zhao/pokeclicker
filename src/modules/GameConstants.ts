@@ -179,6 +179,8 @@ export const GOOEY_MULCH_CATCH_BONUS = 10;
 
 export const WANDER_RATE = 0.0005;
 
+export const DOUBLE_BATTLE_MULTIPLIER = 0.75;
+
 export const BerryColor = [
     '#EE8130', // Red
     '#A33EA1', // Purple

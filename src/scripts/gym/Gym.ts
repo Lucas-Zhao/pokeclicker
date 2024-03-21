@@ -11,6 +11,7 @@ interface gymFlags {
     quest?: boolean;
     achievement?: boolean;
     champion?: boolean;
+    doubleBattle?: boolean;
 }
 
 interface optionalGymArgs {
@@ -41,6 +42,7 @@ class Gym extends TownContent {
         quest: true,
         achievement: true,
         champion: false,
+        doubleBattle: false
     };
 
     public areaStatus(): areaStatus {
@@ -76,6 +78,7 @@ class Gym extends TownContent {
             quest = true,
             achievement = true,
             champion = false,
+            doubleBattle = false,
         }: gymFlags = {},
         public optionalArgs: optionalGymArgs = {}
     ) {
@@ -83,6 +86,7 @@ class Gym extends TownContent {
         this.flags.quest = quest;
         this.flags.achievement = achievement;
         this.flags.champion = champion;
+        this.flags.doubleBattle = doubleBattle;
         if (optionalArgs.displayName) {
             this.buttonText = optionalArgs.displayName;
         } else if (!town.includes('Elite') && !town.includes('Champion') && !town.includes('Supreme')) {

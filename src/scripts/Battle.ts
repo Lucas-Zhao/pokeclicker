@@ -7,6 +7,10 @@
 class Battle {
     static enemyPokemon: KnockoutObservable<BattlePokemon> = ko.observable(null);
 
+    static leftEnemyPokemon: KnockoutObservable<BattlePokemon> = ko.observable(null);
+    static rightEnemyPokemon: KnockoutObservable<BattlePokemon> = ko.observable(null);
+    static doubleBattle = false;
+
     static counter = 0;
     static catching: KnockoutObservable<boolean> = ko.observable(false);
     static catchRateActual: KnockoutObservable<number> = ko.observable(null);
@@ -14,6 +18,7 @@ class Battle {
     static lastPokemonAttack = Date.now();
     static lastClickAttack = Date.now();
     static route;
+
 
     /**
      * Probably not needed right now, but might be if we add more logic to a gameTick.
@@ -34,19 +39,28 @@ class Battle {
             return;
         }
         this.lastPokemonAttack = now;
-        if (!this.enemyPokemon()?.isAlive()) {
-            return;
+        if (this.leftEnemyPokemon()?.isAlive()) {
+            this.leftEnemyPokemon().damage(App.game.party.calculatePokemonAttack(this.leftEnemyPokemon().type1, this.leftEnemyPokemon().type2, undefined, undefined, undefined, undefined, undefined, undefined, undefined, this.doubleBattle && this.rightEnemyPokemon().isAlive()));
+            if (!this.leftEnemyPokemon().isAlive()) {
+                this.defeatPokemon(true);
+            }
         }
-        this.enemyPokemon().damage(App.game.party.calculatePokemonAttack(this.enemyPokemon().type1, this.enemyPokemon().type2));
-        if (!this.enemyPokemon().isAlive()) {
-            this.defeatPokemon();
+        if (this.rightEnemyPokemon()?.isAlive()) {
+            console.log(this.doubleBattle);
+            if (this.doubleBattle) {
+                this.rightEnemyPokemon().damage(App.game.party.calculatePokemonAttack(this.rightEnemyPokemon().type1, this.rightEnemyPokemon().type2, undefined, undefined, undefined, undefined, undefined, undefined, undefined, this.doubleBattle && this.rightEnemyPokemon().isAlive()));
+                if (!this.rightEnemyPokemon().isAlive()) {
+                    this.defeatPokemon(false);
+                }
+            }
         }
     }
 
     /**
      * Attacks with clicks and checks if the enemy is defeated.
      */
-    public static clickAttack() {
+    public static clickAttack(left = true) {
+        
         // click attacks disabled and we already beat the starter
         if (App.game.challenges.list.disableClickAttack.active() && player.regionStarters[GameConstants.Region.kanto]() != GameConstants.Starter.None) {
             return;
@@ -57,21 +71,34 @@ class Battle {
         if (this.lastClickAttack > now - 50) {
             return;
         }
-        this.lastClickAttack = now;
-        if (!this.enemyPokemon()?.isAlive()) {
+
+        if (!this.leftEnemyPokemon()?.isAlive() && !this.rightEnemyPokemon()?.isAlive()) {
             return;
         }
-        GameHelper.incrementObservable(App.game.statistics.clickAttacks);
-        this.enemyPokemon().damage(App.game.party.calculateClickAttack(true));
-        if (!this.enemyPokemon().isAlive()) {
-            this.defeatPokemon();
+
+        const attackedPokemon = left ? this.leftEnemyPokemon() : this.rightEnemyPokemon();
+
+        if (!attackedPokemon?.isAlive()) {
+            console.log("try to hit reverse");
+            this.clickAttack(!left);
+            return;
         }
+        attackedPokemon.damage(App.game.party.calculateClickAttack(true));
+
+        this.lastClickAttack = now;
+
+
+        if (!attackedPokemon.isAlive()) {
+            this.defeatPokemon(left);
+        }
+
+        GameHelper.incrementObservable(App.game.statistics.clickAttacks);
     }
 
     /**
      * Award the player with money and exp, and throw a Pokéball if applicable
      */
-    public static defeatPokemon() {
+    public static defeatPokemon(left = true) {
         const enemyPokemon = this.enemyPokemon();
         Battle.route = player.route();
         const region = player.region;
@@ -96,7 +123,7 @@ class Battle {
                 },
                 App.game.pokeballs.calculateCatchTime(pokeBall)
             )
-            ;
+                ;
 
         } else {
             this.generateNewEnemy();
@@ -170,7 +197,7 @@ class Battle {
         } else if (!App.game.party.alreadyCaughtPokemon(enemyPokemon.id)) { // Failed to catch, Uncaught
             App.game.logbook.newLog(
                 LogBookTypes.ESCAPED,
-                createLogContent.escapedWild({ pokemon: enemyPokemon.name})
+                createLogContent.escapedWild({ pokemon: enemyPokemon.name })
             );
         }
         this.catching(false);
@@ -208,7 +235,7 @@ class Battle {
             ];
         }
         const currencyUnits = PokemonFactory.routeDungeonTokens(route, region)
-                                / GameConstants.LuxuryBallCurrencyRate[GameConstants.Currency.dungeonToken];
+            / GameConstants.LuxuryBallCurrencyRate[GameConstants.Currency.dungeonToken];
         const chosenCurrency = currencyKinds[Math.floor(Math.random() * currencyKinds.length)];
         App.game.wallet.addAmount(new Amount(Math.ceil(currencyUnits * GameConstants.LuxuryBallCurrencyRate[chosenCurrency]), chosenCurrency), false);
     }
@@ -222,12 +249,16 @@ class Battle {
     }
 
     public static pokemonAttackTooltip: KnockoutComputed<string> = ko.pureComputed(() => {
-        if (Battle.enemyPokemon()) {
-            const pokemonAttack = App.game.party.calculatePokemonAttack(Battle.enemyPokemon().type1, Battle.enemyPokemon().type2);
-            return `${pokemonAttack.toLocaleString('en-US')} against ${Battle.enemyPokemon().displayName}`;
-        } else {
-            return '';
+        var toolTip = '';
+        if (Battle.leftEnemyPokemon()) {
+            const leftPokemonAttack = App.game.party.calculatePokemonAttack(Battle.leftEnemyPokemon().type1, Battle.leftEnemyPokemon().type2);
+            toolTip = `${leftPokemonAttack.toLocaleString('en-US')} against ${Battle.leftEnemyPokemon().displayName}`;
+            if (Battle.rightEnemyPokemon()) {
+                const rightPokemonAttack = App.game.party.calculatePokemonAttack(Battle.rightEnemyPokemon().type1, Battle.rightEnemyPokemon().type2);
+                toolTip += `\n${rightPokemonAttack.toLocaleString('en-US')} against ${Battle.rightEnemyPokemon().displayName}`;
+            }
         }
-    }).extend({rateLimit: 1000});
+        return toolTip;
+    }).extend({ rateLimit: 1000 });
 
 }

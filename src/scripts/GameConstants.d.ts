@@ -79,6 +79,7 @@ namespace GameConstants {
     declare const MAX_DUNGEON_SIZE: number;
     declare const DUNGEON_CHEST_SHOW: number;
     declare const DUNGEON_MAP_SHOW: number;
+    declare const DOUBLE_BATTLE_MULTIPLIER: number;
     declare enum AchievementOption {
         less,
         equal,
