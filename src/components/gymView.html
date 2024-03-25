@@ -6,7 +6,6 @@
                 <knockout data-bind="template: { name: 'pokemonNameTemplate', data: { 'pokemon': GymBattle.leftEnemyPokemon() } }">Pokémon name</knockout>
             </knockout>
             <!-- ko if: GymBattle.doubleBattle -->
-            <span> & </span>
             <knockout>
                 <knockout data-bind="template: { name: 'pokemonNameTemplate', data: { 'pokemon': GymBattle.rightEnemyPokemon() } }">Pokémon name</knockout>
             </knockout>

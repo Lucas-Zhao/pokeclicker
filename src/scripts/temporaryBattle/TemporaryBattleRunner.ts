@@ -21,11 +21,15 @@ class TemporaryBattleRunner {
 
         player.route(0);
         Battle.route = 0;
-        Battle.catching(!(battle.optionalArgs.isTrainerBattle ?? true));
+        Battle.catchingLeft(!(battle.optionalArgs.isTrainerBattle ?? true));
+        Battle.catchingRight(!(battle.optionalArgs.isTrainerBattle ?? true));
         TemporaryBattleBattle.battle = battle;
+        TemporaryBattleBattle.doubleBattle = battle.optionalArgs.doubleBattle;
         TemporaryBattleBattle.totalPokemons(battle.getPokemonList().length);
-        TemporaryBattleBattle.index(0);
-        TemporaryBattleBattle.generateNewEnemy();
+        TemporaryBattleBattle.leftIndex(0)
+        TemporaryBattleBattle.rightIndex(battle.optionalArgs.doubleBattle ? 1 : Number.MAX_SAFE_INTEGER);
+        TemporaryBattleBattle.generateNewEnemy(true);
+        TemporaryBattleBattle.generateNewEnemy(false);
         App.game.gameState = GameConstants.GameState.temporaryBattle;
         this.running(true);
         this.resetGif();

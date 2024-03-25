@@ -12,9 +12,13 @@ class Battle {
     static doubleBattle = false;
 
     static counter = 0;
-    static catching: KnockoutObservable<boolean> = ko.observable(false);
-    static catchRateActual: KnockoutObservable<number> = ko.observable(null);
-    static pokeball: KnockoutObservable<GameConstants.Pokeball> = ko.observable(GameConstants.Pokeball.Pokeball);
+    //static catching: KnockoutObservable<boolean> = ko.observable(false);
+    static catchingLeft: KnockoutObservable<boolean> = ko.observable(false);
+    static catchingRight: KnockoutObservable<boolean> = ko.observable(false);
+    static catchRateActualLeft: KnockoutObservable<number> = ko.observable(null);
+    static catchRateActualRight: KnockoutObservable<number> = ko.observable(null);
+    static pokeballLeft: KnockoutObservable<GameConstants.Pokeball> = ko.observable(GameConstants.Pokeball.Pokeball);
+    static pokeballRight: KnockoutObservable<GameConstants.Pokeball> = ko.observable(GameConstants.Pokeball.Pokeball);
     static lastPokemonAttack = Date.now();
     static lastClickAttack = Date.now();
     static route;
@@ -46,7 +50,6 @@ class Battle {
             }
         }
         if (this.rightEnemyPokemon()?.isAlive()) {
-            console.log(this.doubleBattle);
             if (this.doubleBattle) {
                 this.rightEnemyPokemon().damage(App.game.party.calculatePokemonAttack(this.rightEnemyPokemon().type1, this.rightEnemyPokemon().type2, undefined, undefined, undefined, undefined, undefined, undefined, undefined, this.doubleBattle && this.rightEnemyPokemon().isAlive()));
                 if (!this.rightEnemyPokemon().isAlive()) {
@@ -173,20 +176,27 @@ class Battle {
         return totalChance;
     }
 
-    protected static prepareCatch(enemyPokemon: BattlePokemon, pokeBall: GameConstants.Pokeball) {
-        this.pokeball(pokeBall);
-        this.catching(true);
-        this.catchRateActual(this.calculateActualCatchRate(enemyPokemon, pokeBall));
+    protected static prepareCatch(enemyPokemon: BattlePokemon, pokeBall: GameConstants.Pokeball, left = true) {
+        let sidePokeball = left ? this.pokeballLeft : this.pokeballRight;
+        let sideCatching = left ? this.catchingLeft : this.catchingRight;
+        let sideCatchRate = left ? this.catchRateActualLeft : this.catchRateActualRight;
+
+        sidePokeball(pokeBall);
+        sideCatching(true);
+        sideCatchRate(this.calculateActualCatchRate(enemyPokemon, pokeBall));
         App.game.pokeballs.usePokeball(pokeBall);
     }
 
-    protected static attemptCatch(enemyPokemon: BattlePokemon, route: number, region: GameConstants.Region) {
+    protected static attemptCatch(enemyPokemon: BattlePokemon, route: number, region: GameConstants.Region, left = true) {
+        let sideCatching = left ? this.catchingLeft : this.catchingRight;
+        let sideCatchRate = left ? this.catchRateActualLeft : this.catchRateActualRight;
+
         if (enemyPokemon == null) {
-            this.catching(false);
+            sideCatching(false);
             return;
         }
-        if (Rand.chance(this.catchRateActual() / 100)) { // Caught
-            this.catchPokemon(enemyPokemon, route, region);
+        if (Rand.chance(sideCatchRate() / 100)) { // Caught
+            this.catchPokemon(enemyPokemon, route, region, left);
         } else if (enemyPokemon.shiny) { // Failed to catch, Shiny
             App.game.logbook.newLog(
                 LogBookTypes.ESCAPED,
@@ -200,22 +210,26 @@ class Battle {
                 createLogContent.escapedWild({ pokemon: enemyPokemon.name })
             );
         }
-        this.catching(false);
-        this.catchRateActual(null);
+        sideCatching(false);
+        sideCatchRate(null);
     }
 
-    public static catchPokemon(enemyPokemon: BattlePokemon, route: number, region: GameConstants.Region) {
-        this.gainTokens(route, region);
+    public static catchPokemon(enemyPokemon: BattlePokemon, route: number, region: GameConstants.Region, left = true) {
+        let sidePokeball = left ? this.pokeballLeft : this.pokeballRight;
+
+        this.gainTokens(route, region, left);
         App.game.oakItems.use(OakItemType.Magic_Ball);
         App.game.party.gainPokemonById(enemyPokemon.id, enemyPokemon.shiny, undefined, enemyPokemon.gender, enemyPokemon.shadow);
         const partyPokemon = App.game.party.getPokemon(enemyPokemon.id);
-        const epBonus = App.game.pokeballs.getEPBonus(this.pokeball());
+        const epBonus = App.game.pokeballs.getEPBonus(sidePokeball());
         partyPokemon.effortPoints += App.game.party.calculateEffortPoints(partyPokemon, enemyPokemon.shiny, enemyPokemon.shadow, enemyPokemon.ep * epBonus);
     }
 
-    public static gainTokens(route: number, region: GameConstants.Region, pokeball = this.pokeball()) {
+    protected static gainTokens(route: number, region: GameConstants.Region, left = true) {
+        let sidePokeball = left ? this.pokeballLeft : this.pokeballRight;
+
         let currencyKinds = [GameConstants.Currency.dungeonToken];
-        if (pokeball === GameConstants.Pokeball.Luxuryball) {
+        if (sidePokeball() === GameConstants.Pokeball.Luxuryball) {
             //currencyKinds = [
             //  GameConstants.Currency.dungeonToken,
             //  GameConstants.Currency.money,

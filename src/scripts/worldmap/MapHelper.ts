@@ -35,7 +35,7 @@ class MapHelper {
             if (player.region != region) {
                 player.region = region;
             }
-            if (genNewEnemy && !Battle.catching()) {
+            if (genNewEnemy && !(Battle.catchingLeft() && Battle.catchingRight())) {
                 Battle.generateNewEnemy();
             }
             App.game.gameState = GameConstants.GameState.fighting;
@@ -206,7 +206,8 @@ class MapHelper {
             App.game.gameState = GameConstants.GameState.idle;
             player.route(0);
             Battle.route = 0;
-            Battle.catching(false);
+            Battle.catchingLeft(false);
+            Battle.catchingRight(false);
             const town = TownList[townName];
             player.town(town);
             player._subregion(town.subRegion);

@@ -33,8 +33,6 @@ class GymBattle extends Battle {
             this.rightEnemyPokemon().defeat(true);
             this.rightIndex(this.leftIndex() > this.rightIndex() ? this.leftIndex() + 1 : this.rightIndex() + 1);
         }
-        console.log("left index", this.leftIndex());
-        console.log("right index", this.rightIndex());
 
         // Make gym "route" regionless
         App.game.breeding.progressEggsBattle(this.gym.badgeReward * 3 + 1, GameConstants.Region.none);
@@ -63,7 +61,10 @@ class GymBattle extends Battle {
     }
 
     public static pokemonsDefeatedComputable: KnockoutComputed<number> = ko.pureComputed(() => {
-        return Math.max(Math.min(GymBattle.leftIndex(), GymBattle.gym.getPokemonList().length), Math.min(GymBattle.rightIndex(), GymBattle.gym.getPokemonList().length)) -1;
+        return Math.max(
+            Math.min(GymBattle.leftIndex(), GymBattle.gym.getPokemonList().length),
+            Math.min(this.doubleBattle ? GymBattle.rightIndex() : 0, GymBattle.gym.getPokemonList().length))
+            -(this.doubleBattle ? 1 : 0);
     });
 
     public static pokemonsUndefeatedComputable: KnockoutComputed<number> = ko.pureComputed(() => {

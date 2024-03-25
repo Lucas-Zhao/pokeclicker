@@ -150,7 +150,7 @@ class DungeonBattle extends Battle {
     }
 
     public static generateNewEnemy() {
-        this.catching(false);
+        this.catchingLeft(false);
         this.counter = 0;
 
         // Finding enemy from enemyList
@@ -198,7 +198,7 @@ class DungeonBattle extends Battle {
     }
 
     public static generateNewLootEnemy(pokemon: PokemonNameType) {
-        this.catching(false);
+        this.catchingLeft(false);
         this.counter = 0;
         const enemyPokemon = PokemonFactory.generateDungeonPokemon(pokemon
             , DungeonRunner.chestsOpened(), DungeonRunner.dungeon.baseHealth * 2, DungeonRunner.dungeonLevel(), true);
@@ -246,7 +246,7 @@ class DungeonBattle extends Battle {
 
     public static generateNewBoss() {
         DungeonRunner.fighting(true);
-        this.catching(false);
+        this.catchingLeft(false);
         this.counter = 0;
 
         // Finding boss from bossList

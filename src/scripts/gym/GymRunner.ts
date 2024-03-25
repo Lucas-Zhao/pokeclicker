@@ -23,13 +23,11 @@ class GymRunner {
         App.game.gameState = GameConstants.GameState.idle;
         DungeonRunner.timeBonus(FluteEffectRunner.getFluteMultiplier(GameConstants.FluteItemType.Time_Flute));
         GymRunner.timeLeft(GameConstants.GYM_TIME * GymRunner.timeBonus());
-        //GymRunner.timeLeft(999_999_999 * 1000);
         GymRunner.timeLeftPercentage(100);
 
         GymBattle.gym = gym;
         GymBattle.doubleBattle = gym.flags.doubleBattle;
         GymBattle.totalPokemons(gym.getPokemonList().length);
-        GymBattle.index(0);
         GymBattle.leftIndex(0)
         GymBattle.rightIndex(gym.flags.doubleBattle ? 1 : Number.MAX_SAFE_INTEGER);
         GymBattle.generateNewEnemy(true);

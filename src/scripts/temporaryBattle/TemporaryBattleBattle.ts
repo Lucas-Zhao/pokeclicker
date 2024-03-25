@@ -2,7 +2,10 @@
 class TemporaryBattleBattle extends Battle {
 
     static battle: TemporaryBattle;
-    static index: KnockoutObservable<number> = ko.observable(0);
+    
+    static leftIndex: KnockoutObservable<number> = ko.observable(0);
+    static rightIndex: KnockoutObservable<number> = ko.observable(0);
+
     static totalPokemons: KnockoutObservable<number> = ko.observable(0);
 
     public static pokemonAttack() {
@@ -18,45 +21,47 @@ class TemporaryBattleBattle extends Battle {
     }
 
 
-    public static defeatPokemon() {
-        const enemyPokemon = super.enemyPokemon();
+    public static defeatPokemon(left = true) {
+        const enemyPokemon = left ? this.leftEnemyPokemon() : this.rightEnemyPokemon();
+
         if (!TemporaryBattleBattle.battle.optionalArgs.isTrainerBattle || enemyPokemon.shadow == GameConstants.ShadowStatus.Shadow) {
             // Attempting to catch Pokemon
             const isShiny: boolean = enemyPokemon.shiny;
             const isShadow: boolean = enemyPokemon.shadow == GameConstants.ShadowStatus.Shadow;
             const pokeBall: GameConstants.Pokeball = App.game.pokeballs.calculatePokeballToUse(enemyPokemon.id, isShiny, isShadow, enemyPokemon.encounterType);
             if (pokeBall !== GameConstants.Pokeball.None) {
-                this.prepareCatch(enemyPokemon, pokeBall);
+                this.prepareCatch(enemyPokemon, pokeBall, left);
                 setTimeout(
                     () => {
-                        this.attemptCatch(enemyPokemon, 1, player.region);
-                        this.endFight();
+                        this.attemptCatch(enemyPokemon, 1, player.region, left);
+                        this.progressBattle(left);
                     },
                     App.game.pokeballs.calculateCatchTime(pokeBall)
                 );
             } else {
-                this.endFight();
+                this.progressBattle(left);
             }
         } else {
-            this.endFight();
-        }
+            this.progressBattle(left);
+        }   
+        
     }
 
-    private static endFight() {
-        if (TemporaryBattleBattle.index() >= TemporaryBattleBattle.battle.getPokemonList().length) {
-            TemporaryBattleRunner.battleWon(TemporaryBattleBattle.battle);
+    public static progressBattle(left = true) {
+        const enemyPokemon = left ? this.leftEnemyPokemon() : this.rightEnemyPokemon();
+        enemyPokemon.defeat(true);
+        if (left) {
+            this.leftIndex(this.rightIndex() > this.leftIndex() && this.doubleBattle ? this.rightIndex() + 1 : this.leftIndex() + 1);
         } else {
-            TemporaryBattleBattle.generateNewEnemy();
+            this.rightIndex(this.leftIndex() > this.rightIndex() ? this.leftIndex() + 1 : this.rightIndex() + 1);
         }
-
-        TemporaryBattleBattle.enemyPokemon().defeat(this.battle.optionalArgs.isTrainerBattle ?? true);
-
-        TemporaryBattleBattle.index(TemporaryBattleBattle.index() + 1);
-
-        if (TemporaryBattleBattle.index() >= TemporaryBattleBattle.battle.getPokemonList().length) {
+        console.log("left index", this.leftIndex());
+        console.log("right index", this.rightIndex());
+        console.log("length", this.battle.getPokemonList().length);
+        if (this.leftIndex() >= this.battle.getPokemonList().length && this.rightIndex() >= this.battle.getPokemonList().length) { 
             TemporaryBattleRunner.battleWon(TemporaryBattleBattle.battle);
         } else {
-            TemporaryBattleBattle.generateNewEnemy();
+            TemporaryBattleBattle.generateNewEnemy(left);
         }
         player.lowerItemMultipliers(MultiplierDecreaser.Battle);
     }
@@ -64,17 +69,27 @@ class TemporaryBattleBattle extends Battle {
     /**
      * Reset the counter.
      */
-    public static generateNewEnemy() {
-        this.catching(false);
+    public static generateNewEnemy(left = true) {
+        
         TemporaryBattleBattle.counter = 0;
-        TemporaryBattleBattle.enemyPokemon(PokemonFactory.generateTemporaryBattlePokemon(TemporaryBattleBattle.battle, TemporaryBattleBattle.index()));
+        let sideIndex = left ? this.leftIndex() : this.rightIndex();
+        let sideNewPokemon = left ? this.leftEnemyPokemon : this.rightEnemyPokemon;
+        let sideCatching = left ? this.catchingLeft : this.catchingRight;
+
+        sideCatching(false);
+        if (sideIndex  < this.battle.getPokemonList().length) {
+            sideNewPokemon(PokemonFactory.generateTemporaryBattlePokemon(TemporaryBattleBattle.battle, sideIndex))
+        } 
     }
 
     public static pokemonsDefeatedComputable: KnockoutComputed<number> = ko.pureComputed(() => {
-        return TemporaryBattleBattle.index();
+        return Math.max(
+            Math.min(TemporaryBattleBattle.leftIndex(), TemporaryBattleBattle.battle.getPokemonList().length),
+            Math.min(this.doubleBattle ? TemporaryBattleBattle.rightIndex() : 0, TemporaryBattleBattle.battle.getPokemonList().length))
+            - (this.doubleBattle ? 1 : 0);
     });
 
     public static pokemonsUndefeatedComputable: KnockoutComputed<number> = ko.pureComputed(() => {
-        return TemporaryBattleBattle.totalPokemons() - TemporaryBattleBattle.index();
+        return TemporaryBattleBattle.totalPokemons() - TemporaryBattleBattle.pokemonsDefeatedComputable();
     })
 }

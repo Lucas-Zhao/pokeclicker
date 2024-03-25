@@ -117,7 +117,7 @@ class DungeonRunner {
      * Handles the interaction event in the dungeon view and from keybinds
      */
     public static handleInteraction(source: GameConstants.DungeonInteractionSource = GameConstants.DungeonInteractionSource.Click) {
-        if (DungeonRunner.fighting() && !DungeonBattle.catching() && source === GameConstants.DungeonInteractionSource.Click) {
+        if (DungeonRunner.fighting() && !DungeonBattle.catchingLeft() && source === GameConstants.DungeonInteractionSource.Click) {
             DungeonBattle.clickAttack();
         } else if (DungeonRunner.map.currentTile().type() === GameConstants.DungeonTile.entrance && source !== GameConstants.DungeonInteractionSource.HeldKeybind) {
             DungeonRunner.dungeonLeave();
