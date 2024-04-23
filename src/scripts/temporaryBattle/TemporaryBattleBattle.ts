@@ -55,9 +55,7 @@ class TemporaryBattleBattle extends Battle {
         } else {
             this.rightIndex(this.leftIndex() > this.rightIndex() ? this.leftIndex() + 1 : this.rightIndex() + 1);
         }
-        console.log("left index", this.leftIndex());
-        console.log("right index", this.rightIndex());
-        console.log("length", this.battle.getPokemonList().length);
+
         if (this.leftIndex() >= this.battle.getPokemonList().length && this.rightIndex() >= this.battle.getPokemonList().length) { 
             TemporaryBattleRunner.battleWon(TemporaryBattleBattle.battle);
         } else {
@@ -77,7 +75,7 @@ class TemporaryBattleBattle extends Battle {
         let sideCatching = left ? this.catchingLeft : this.catchingRight;
 
         sideCatching(false);
-        if (sideIndex  < this.battle.getPokemonList().length) {
+        if (sideIndex < this.battle.getPokemonList().length) {
             sideNewPokemon(PokemonFactory.generateTemporaryBattlePokemon(TemporaryBattleBattle.battle, sideIndex))
         } 
     }

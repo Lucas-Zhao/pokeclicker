@@ -275,6 +275,7 @@ class DungeonRunner {
             DungeonRunner.dungeonFinished(true);
             DungeonRunner.fighting(false);
             DungeonRunner.fightingBoss(false);
+            
             App.game.gameState = GameConstants.GameState.town;
             Notifier.notify({
                 message: 'You could not complete the dungeon in time.',

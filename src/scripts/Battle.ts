@@ -12,7 +12,10 @@ class Battle {
     static doubleBattle = false;
 
     static counter = 0;
-    //static catching: KnockoutObservable<boolean> = ko.observable(false);
+    static catching: KnockoutObservable<boolean> = ko.observable(false);
+    static catchRateActual: KnockoutObservable<number> = ko.observable(null);
+    static pokeball: KnockoutObservable<GameConstants.Pokeball> = ko.observable(GameConstants.Pokeball.Pokeball);
+
     static catchingLeft: KnockoutObservable<boolean> = ko.observable(false);
     static catchingRight: KnockoutObservable<boolean> = ko.observable(false);
     static catchRateActualLeft: KnockoutObservable<number> = ko.observable(null);
@@ -82,11 +85,11 @@ class Battle {
         const attackedPokemon = left ? this.leftEnemyPokemon() : this.rightEnemyPokemon();
 
         if (!attackedPokemon?.isAlive()) {
-            console.log("try to hit reverse");
             this.clickAttack(!left);
             return;
         }
-        attackedPokemon.damage(App.game.party.calculateClickAttack(true));
+
+        attackedPokemon.damage(App.game.party.calculateClickAttack(true));        
 
         this.lastClickAttack = now;
 
@@ -142,6 +145,7 @@ class Battle {
     public static generateNewEnemy() {
         this.counter = 0;
         this.enemyPokemon(PokemonFactory.generateWildPokemon(player.route(), player.region, player.subregionObject()));
+        this.leftEnemyPokemon(PokemonFactory.generateWildPokemon(player.route(), player.region, player.subregionObject()));
         const enemyPokemon = this.enemyPokemon();
         PokemonHelper.incrementPokemonStatistics(enemyPokemon.id, GameConstants.PokemonStatisticsType.Encountered, enemyPokemon.shiny, enemyPokemon.gender, enemyPokemon.shadow);
         // Shiny
@@ -264,10 +268,10 @@ class Battle {
 
     public static pokemonAttackTooltip: KnockoutComputed<string> = ko.pureComputed(() => {
         var toolTip = '';
-        if (Battle.leftEnemyPokemon()) {
+        if (Battle.leftEnemyPokemon() && Battle.leftEnemyPokemon().health() > 0) {
             const leftPokemonAttack = App.game.party.calculatePokemonAttack(Battle.leftEnemyPokemon().type1, Battle.leftEnemyPokemon().type2);
             toolTip = `${leftPokemonAttack.toLocaleString('en-US')} against ${Battle.leftEnemyPokemon().displayName}`;
-            if (Battle.rightEnemyPokemon()) {
+            if (Battle.rightEnemyPokemon() && Battle.rightEnemyPokemon().health() > 0) {
                 const rightPokemonAttack = App.game.party.calculatePokemonAttack(Battle.rightEnemyPokemon().type1, Battle.rightEnemyPokemon().type2);
                 toolTip += `\n${rightPokemonAttack.toLocaleString('en-US')} against ${Battle.rightEnemyPokemon().displayName}`;
             }
