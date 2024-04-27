@@ -5,16 +5,11 @@
  * Handles all logic related to battling
  */
 class Battle {
-    static enemyPokemon: KnockoutObservable<BattlePokemon> = ko.observable(null);
-
     static leftEnemyPokemon: KnockoutObservable<BattlePokemon> = ko.observable(null);
     static rightEnemyPokemon: KnockoutObservable<BattlePokemon> = ko.observable(null);
     static doubleBattle = false;
 
     static counter = 0;
-    static catching: KnockoutObservable<boolean> = ko.observable(false);
-    static catchRateActual: KnockoutObservable<number> = ko.observable(null);
-    static pokeball: KnockoutObservable<GameConstants.Pokeball> = ko.observable(GameConstants.Pokeball.Pokeball);
 
     static catchingLeft: KnockoutObservable<boolean> = ko.observable(false);
     static catchingRight: KnockoutObservable<boolean> = ko.observable(false);
@@ -105,7 +100,7 @@ class Battle {
      * Award the player with money and exp, and throw a Pokéball if applicable
      */
     public static defeatPokemon(left = true) {
-        const enemyPokemon = this.enemyPokemon();
+        const enemyPokemon = left ? this.leftEnemyPokemon() : this.rightEnemyPokemon();
         Battle.route = player.route();
         const region = player.region;
         const catchRoute = player.route(); // Has to be set, the Battle.route is "zeroed" on region change
@@ -144,9 +139,8 @@ class Battle {
      */
     public static generateNewEnemy() {
         this.counter = 0;
-        this.enemyPokemon(PokemonFactory.generateWildPokemon(player.route(), player.region, player.subregionObject()));
         this.leftEnemyPokemon(PokemonFactory.generateWildPokemon(player.route(), player.region, player.subregionObject()));
-        const enemyPokemon = this.enemyPokemon();
+        const enemyPokemon = this.leftEnemyPokemon();
         PokemonHelper.incrementPokemonStatistics(enemyPokemon.id, GameConstants.PokemonStatisticsType.Encountered, enemyPokemon.shiny, enemyPokemon.gender, enemyPokemon.shadow);
         // Shiny
         if (enemyPokemon.shiny) {

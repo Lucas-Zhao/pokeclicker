@@ -40,7 +40,8 @@ class DungeonRunner {
         // Reset any trainers/pokemon if there was one previously
         DungeonBattle.trainer(null);
         DungeonBattle.trainerPokemonIndex(0);
-        DungeonBattle.enemyPokemon(null);
+        DungeonBattle.leftEnemyPokemon(null);
+        DungeonBattle.rightEnemyPokemon(null);
         DungeonRunner.timeBonus(FluteEffectRunner.getFluteMultiplier(GameConstants.FluteItemType.Time_Flute));
         DungeonRunner.timeLeft(GameConstants.DUNGEON_TIME * DungeonRunner.timeBonus());
 

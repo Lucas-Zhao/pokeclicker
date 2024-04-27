@@ -211,7 +211,8 @@ class MapHelper {
             const town = TownList[townName];
             player.town(town);
             player._subregion(town.subRegion);
-            Battle.enemyPokemon(null);
+            Battle.leftEnemyPokemon(null);
+            Battle.rightEnemyPokemon(null);
             //this should happen last, so all the values all set beforehand
             App.game.gameState = GameConstants.GameState.town;
         } else {

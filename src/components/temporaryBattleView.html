@@ -90,15 +90,6 @@
             </div>
             <!-- /ko -->
 
-            <div data-bind="if: TemporaryBattleBattle.catching" class="catchChance">
-                <img class="pokeball-animated"
-                     data-bind="attr:{ src: 'assets/images/pokeball/' + GameConstants.Pokeball[TemporaryBattleBattle.pokeball()] + '.svg' }"
-                     src="" />
-                <br>
-                Catch Chance:
-                <knockout data-bind="text: Math.floor(TemporaryBattleBattle.catchRateActual()) + '%'">Catch Rate</knockout>
-            </div>
-
         </div>
        
             <h2 class="pageItemFooter" style="display: block; font-size: 1rem;">

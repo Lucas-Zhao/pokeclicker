@@ -53,7 +53,7 @@
             </div>
         </h2>
          
-        <!-- ko if: (DungeonRunner.fighting() || DungeonBattle.catching)  -->
+        <!-- ko if: (DungeonRunner.fighting() || DungeonBattle.catchingLeft || DungeonBattle.catchingRight)  -->
         <div data-bind="if: DungeonBattle.leftEnemyPokemon, css: { 'doubleBattle ': DungeonBattle.doubleBattle }">
             <div class="trainer" data-bind="if: DungeonBattle.trainer() && !DungeonBattle.trainer().options?.hideTrainer">
                 <img data-bind="attr:{ src: DungeonBattle.trainer().image }" onerror="this.src='assets/images/npcs/specialNPCs/Mysterious Trainer.png';"/>
@@ -75,13 +75,31 @@
                         <knockout data-bind="template: { name: 'pokemonSpriteTemplate', data: { 'pokemon': DungeonBattle.leftEnemyPokemon() } }">Pokémon sprite</knockout>
                     </div>
                 </div>
+                <div data-bind="if: DungeonBattle.catchingLeft" class="catchChance">
+                    <img class="pokeball-animated"
+                         data-bind="attr:{ src: 'assets/images/pokeball/' + GameConstants.Pokeball[DungeonBattle.pokeballLeft()] + '.svg' }"
+                         src="" />
+                    <br>
+                    Catch Chance:
+                    <knockout data-bind="text: Math.floor(DungeonBattle.catchRateActualLeft()) + '%'">Catch Rate</knockout>
+                </div>
                 <!-- ko if: DungeonBattle.trainer() && DungeonBattle.trainer().options?.doubleBattle -->
                 <div data-bind="ifnot: DungeonBattle.catchingRight">
                     <div class="enemyPokemon" data-bind="click: function() {DungeonBattle.clickAttack(false)}">
                         <knockout data-bind="template: { name: 'pokemonSpriteTemplate', data: { 'pokemon': DungeonBattle.rightEnemyPokemon() } }">Pokémon sprite</knockout>
                     </div>
                 </div>
+                                <div data-bind="if: (DungeonBattle.catchingRight)" class="catchChance catchingRight">
+                    <img class="pokeball-animated"
+                         data-bind="attr:{ src: 'assets/images/pokeball/' + GameConstants.Pokeball[DungeonBattle.pokeballRight()] + '.svg' }"
+                         src="" />
+                    <br>
+                    Catch Chance:
+                    <knockout data-bind="text: Math.floor(DungeonBattle.catchRateActualRight()) + '%'">Catch Rate</knockout>
+                </div>
                 <!-- /ko -->
+
+
             </div>
             <div class="progress hitpoints dungeonhitpoints" style="height: 20px;">
                 <div class="progress-bar bg-danger" role="progressbar"
