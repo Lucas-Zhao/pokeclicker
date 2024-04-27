@@ -24,11 +24,11 @@ class BattleFrontierBattle extends Battle {
             return;
         }
         this.lastPokemonAttack = now;
-        if (!this.enemyPokemon()?.isAlive()) {
+        if (!this.leftEnemyPokemon()?.isAlive()) {
             return;
         }
-        this.enemyPokemon().damage(App.game.party.calculatePokemonAttack(this.enemyPokemon().type1, this.enemyPokemon().type2, true));
-        if (!this.enemyPokemon().isAlive()) {
+        this.leftEnemyPokemon().damage(App.game.party.calculatePokemonAttack(this.leftEnemyPokemon().type1, this.leftEnemyPokemon().type2, true));
+        if (!this.leftEnemyPokemon().isAlive()) {
             this.defeatPokemon();
         }
     }
@@ -39,7 +39,7 @@ class BattleFrontierBattle extends Battle {
     public static defeatPokemon() {
         // This needs to stay as none so the stage number isn't adjusted
         App.game.breeding.progressEggsBattle(BattleFrontierRunner.stage(), GameConstants.Region.none);
-        this.enemyPokemon().defeat(true);
+        this.leftEnemyPokemon().defeat(true);
         // Next pokemon
         GameHelper.incrementObservable(this.pokemonIndex);
 
@@ -54,7 +54,7 @@ class BattleFrontierBattle extends Battle {
             // Create the next Pokemon to fight
             this.generateNewEnemy();
         } else {
-            this.enemyPokemon(null);
+            this.leftEnemyPokemon(null);
         }
     }
 
@@ -71,6 +71,6 @@ class BattleFrontierBattle extends Battle {
         const gender = PokemonFactory.generateGender(enemy.gender.femaleRatio, enemy.gender.type);
 
         const enemyPokemon = new BattlePokemon(enemy.name, enemy.id, enemy.type[0], enemy.type[1], health, level, 0, enemy.exp, new Amount(money, GameConstants.Currency.money), shiny, gems, gender, GameConstants.ShadowStatus.None, EncounterType.trainer);
-        this.enemyPokemon(enemyPokemon);
+        this.leftEnemyPokemon(enemyPokemon);
     }
 }

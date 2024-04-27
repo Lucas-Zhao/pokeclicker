@@ -66,7 +66,6 @@ class DungeonBattle extends Battle {
         const region = player.region;
         if (pokeBall !== GameConstants.Pokeball.None) {
             this.prepareCatch(enemyPokemon, pokeBall, left);
-            console.log(this.catchRateActualLeft());
             setTimeout(
                 () => {
                     this.attemptCatch(enemyPokemon, route, region, left);                  

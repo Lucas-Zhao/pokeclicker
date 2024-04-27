@@ -17,7 +17,7 @@ class BattleFrontier implements Feature {
     }
 
     public enter(): void {
-        BattleFrontierBattle.enemyPokemon(null);
+        BattleFrontierBattle.leftEnemyPokemon(null);
         App.game.gameState = GameConstants.GameState.battleFrontier;
     }
 
