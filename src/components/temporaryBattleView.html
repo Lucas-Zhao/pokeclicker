@@ -99,7 +99,7 @@
                 <table width="100%">
                     <tr>
                         <td width="50%">
-                            <knockout data-bind="template: { name: 'pokemonAttackTemplate', data: { 'pokemon': Battle.enemyPokemon() } }"></knockout>
+                            <knockout data-bind="template: { name: 'pokemonAttackTemplate', data: { 'pokemon': Battle.leftEnemyPokemon() } }"></knockout>
                         </td>
                         <td width="50%" data-bind="css: { 'text-muted': App.game.challenges.list.disableClickAttack.active() }">
                             <span style="display: inline;">

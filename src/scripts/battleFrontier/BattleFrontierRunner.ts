@@ -63,7 +63,7 @@ class BattleFrontierRunner {
     }
 
     public static end() {
-        BattleFrontierBattle.enemyPokemon(null);
+        BattleFrontierBattle.leftEnemyPokemon(null);
         this.stage(1);
         this.started(false);
     }

@@ -61,10 +61,11 @@ class GymBattle extends Battle {
     }
 
     public static pokemonsDefeatedComputable: KnockoutComputed<number> = ko.pureComputed(() => {
-        return Math.max(
+        var defeated = Math.max(
             Math.min(GymBattle.leftIndex(), GymBattle.gym.getPokemonList().length),
-            Math.min(this.doubleBattle ? GymBattle.rightIndex() : 0, GymBattle.gym.getPokemonList().length))
-            -(this.doubleBattle ? 1 : 0);
+            Math.min(GymBattle.doubleBattle ? GymBattle.rightIndex() : 0, GymBattle.gym.getPokemonList().length))
+            - (GymBattle.doubleBattle ? 1 : 0);
+        return defeated >= 0 ? defeated : 0;
     });
 
     public static pokemonsUndefeatedComputable: KnockoutComputed<number> = ko.pureComputed(() => {

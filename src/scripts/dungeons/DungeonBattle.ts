@@ -97,7 +97,7 @@ class DungeonBattle extends Battle {
         App.game.breeding.progressEggsBattle(DungeonRunner.dungeon.difficultyRoute, player.region);
         player.lowerItemMultipliers(MultiplierDecreaser.Battle);
 
-        if (this.leftEnemyPokemon().shadow == GameConstants.ShadowStatus.Shadow) {
+        if (enemyPokemon.shadow == GameConstants.ShadowStatus.Shadow) {
             // Attempting to catch Pokemon
             const isShiny: boolean = enemyPokemon.shiny;
             const isShadow: boolean = enemyPokemon.shadow == GameConstants.ShadowStatus.Shadow;
@@ -124,43 +124,45 @@ class DungeonBattle extends Battle {
 
     private static nextTrainerPokemon(left = true) {
         // No Pokemon left, trainer defeated
-        if (this.leftTrainerPokemonIndex() >= this.trainer().getTeam().length && this.rightTrainerPokemonIndex() >= this.trainer().getTeam().length) {
-            // rewards for defeating trainer
-            if (this.trainer().options.reward) {
-                // Custom reward amount on defeat
-                App.game.wallet.addAmount(this.trainer().options.reward);
+        if (this.trainer()) {
+            if(this.leftTrainerPokemonIndex() >= this.trainer().getTeam().length && this.rightTrainerPokemonIndex() >= this.trainer().getTeam().length) {
+                // rewards for defeating trainer
+                if (this.trainer().options.reward) {
+                    // Custom reward amount on defeat
+                    App.game.wallet.addAmount(this.trainer().options.reward);
+                } else {
+                    const dungeonCost = DungeonRunner.dungeon.tokenCost;
+                    // Reward back 50% or 100% (boss) of the total dungeon DT cost as money (excludes achievement multiplier)
+                    const money = Math.round(dungeonCost * (DungeonRunner.fightingBoss() ? 1 : 0.5));
+                    App.game.wallet.gainMoney(money, true);
+                    // Reward back 4% or 10% (boss) of the total dungeon DT cost (excludes achievement multiplier)
+                    const tokens = Math.round(dungeonCost * (DungeonRunner.fightingBoss() ? 0.1 : 0.04));
+                    App.game.wallet.gainDungeonTokens(tokens, true);
+                }
+
+                DungeonRunner.fighting(false);
+                GameHelper.incrementObservable(DungeonRunner.encountersWon);
+                if (DungeonRunner.fightingBoss()) {
+                    DungeonRunner.defeatedBoss(DungeonBattle.trainer().name);
+                }
+                this.trainer(null);
+                this.trainerPokemonIndex(0);
+                this.leftTrainerPokemonIndex(0)
+                this.rightTrainerPokemonIndex(0)
+                this.doubleBattle = false;
+                // Clearing Dungeon tile
+                DungeonRunner.map.currentTile().type(GameConstants.DungeonTile.empty);
+                DungeonRunner.map.currentTile().calculateCssClass();
+
+                // Update boss
+                if (DungeonRunner.fightingBoss()) {
+                    DungeonRunner.fightingBoss(false);
+                    DungeonRunner.dungeonWon();
+                }
+                // Generate next trainer Pokemon
             } else {
-                const dungeonCost = DungeonRunner.dungeon.tokenCost;
-                // Reward back 50% or 100% (boss) of the total dungeon DT cost as money (excludes achievement multiplier)
-                const money = Math.round(dungeonCost * (DungeonRunner.fightingBoss() ? 1 : 0.5));
-                App.game.wallet.gainMoney(money, true);
-                // Reward back 4% or 10% (boss) of the total dungeon DT cost (excludes achievement multiplier)
-                const tokens = Math.round(dungeonCost * (DungeonRunner.fightingBoss() ? 0.1 : 0.04));
-                App.game.wallet.gainDungeonTokens(tokens, true);
+                this.generateTrainerPokemon(left);
             }
-
-            DungeonRunner.fighting(false);
-            GameHelper.incrementObservable(DungeonRunner.encountersWon);
-            if (DungeonRunner.fightingBoss()) {
-                DungeonRunner.defeatedBoss(DungeonBattle.trainer().name);
-            }
-            this.trainer(null);
-            this.trainerPokemonIndex(0);
-            this.leftTrainerPokemonIndex(0)
-            this.rightTrainerPokemonIndex(0)
-            this.doubleBattle = false;
-            // Clearing Dungeon tile
-            DungeonRunner.map.currentTile().type(GameConstants.DungeonTile.empty);
-            DungeonRunner.map.currentTile().calculateCssClass();
-
-            // Update boss
-            if (DungeonRunner.fightingBoss()) {
-                DungeonRunner.fightingBoss(false);
-                DungeonRunner.dungeonWon();
-            }
-        // Generate next trainer Pokemon
-        } else {
-            this.generateTrainerPokemon(left);
         }
     }
 
