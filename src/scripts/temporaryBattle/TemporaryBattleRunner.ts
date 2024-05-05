@@ -26,7 +26,7 @@ class TemporaryBattleRunner {
         TemporaryBattleBattle.battle = battle;
         TemporaryBattleBattle.doubleBattle = battle.optionalArgs.doubleBattle;
         TemporaryBattleBattle.totalPokemons(battle.getPokemonList().length);
-        TemporaryBattleBattle.leftIndex(0)
+        TemporaryBattleBattle.leftIndex(0);
         TemporaryBattleBattle.rightIndex(battle.optionalArgs.doubleBattle ? 1 : Number.MAX_SAFE_INTEGER);
         TemporaryBattleBattle.generateNewEnemy(true);
         TemporaryBattleBattle.generateNewEnemy(false);

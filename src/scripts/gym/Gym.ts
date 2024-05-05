@@ -42,7 +42,7 @@ class Gym extends TownContent {
         quest: true,
         achievement: true,
         champion: false,
-        doubleBattle: false
+        doubleBattle: false,
     };
 
     public areaStatus(): areaStatus {

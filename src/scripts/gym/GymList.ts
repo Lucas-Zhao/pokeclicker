@@ -538,7 +538,7 @@ GymList['Mossdeep City'] = new Gym(
     'What? Our combination... was shattered! It can\'t be helped. You\'ve won... So, in recognition, take this Gym Badge.',
     [new RouteKillRequirement(10, GameConstants.Region.hoenn, 125)],
     () => {},
-    { doubleBattle: true },   
+    { doubleBattle: true }
 );
 GymList['Sootopolis City'] = new Gym(
     'Juan',
@@ -1983,7 +1983,7 @@ GymList.Hammerlocke = new Gym(
     'I might have lost, but I still look good. Maybe I should snap a quick selfie...',
     [new GymBadgeRequirement(BadgeEnums.Galar_Dark)],
     () => { },
-    { doubleBattle: true },   
+    { doubleBattle: true }
 );
 GymList['Elite Trainer Marnie'] = new Gym(
     'Marnie',

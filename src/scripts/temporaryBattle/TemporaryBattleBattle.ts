@@ -2,7 +2,7 @@
 class TemporaryBattleBattle extends Battle {
 
     static battle: TemporaryBattle;
-    
+
     static leftIndex: KnockoutObservable<number> = ko.observable(0);
     static rightIndex: KnockoutObservable<number> = ko.observable(0);
 
@@ -43,8 +43,8 @@ class TemporaryBattleBattle extends Battle {
             }
         } else {
             this.progressBattle(left);
-        }   
-        
+        }
+
     }
 
     public static progressBattle(left = true) {
@@ -56,7 +56,7 @@ class TemporaryBattleBattle extends Battle {
             this.rightIndex(this.leftIndex() > this.rightIndex() ? this.leftIndex() + 1 : this.rightIndex() + 1);
         }
 
-        if (this.leftIndex() >= this.battle.getPokemonList().length && this.rightIndex() >= this.battle.getPokemonList().length) { 
+        if (this.leftIndex() >= this.battle.getPokemonList().length && this.rightIndex() >= this.battle.getPokemonList().length) {
             TemporaryBattleRunner.battleWon(TemporaryBattleBattle.battle);
         } else {
             TemporaryBattleBattle.generateNewEnemy(left);
@@ -68,16 +68,16 @@ class TemporaryBattleBattle extends Battle {
      * Reset the counter.
      */
     public static generateNewEnemy(left = true) {
-        
+
         TemporaryBattleBattle.counter = 0;
-        let sideIndex = left ? this.leftIndex() : this.rightIndex();
-        let sideNewPokemon = left ? this.leftEnemyPokemon : this.rightEnemyPokemon;
-        let sideCatching = left ? this.catchingLeft : this.catchingRight;
+        const sideIndex = left ? this.leftIndex() : this.rightIndex();
+        const sideNewPokemon = left ? this.leftEnemyPokemon : this.rightEnemyPokemon;
+        const sideCatching = left ? this.catchingLeft : this.catchingRight;
 
         sideCatching(false);
         if (sideIndex < this.battle.getPokemonList().length) {
-            sideNewPokemon(PokemonFactory.generateTemporaryBattlePokemon(TemporaryBattleBattle.battle, sideIndex))
-        } 
+            sideNewPokemon(PokemonFactory.generateTemporaryBattlePokemon(TemporaryBattleBattle.battle, sideIndex));
+        }
     }
 
     public static pokemonsDefeatedComputable: KnockoutComputed<number> = ko.pureComputed(() => {

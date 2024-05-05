@@ -28,7 +28,7 @@ class GymRunner {
         GymBattle.gym = gym;
         GymBattle.doubleBattle = gym.flags.doubleBattle;
         GymBattle.totalPokemons(gym.getPokemonList().length);
-        GymBattle.leftIndex(0)
+        GymBattle.leftIndex(0);
         GymBattle.rightIndex(gym.flags.doubleBattle ? 1 : Number.MAX_SAFE_INTEGER);
         GymBattle.generateNewEnemy(true);
         GymBattle.generateNewEnemy(false);

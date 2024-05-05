@@ -2307,7 +2307,7 @@ class Farming implements Feature {
                 * (Berry.isBaseWanderer(wanderer.name) ? GameConstants.BASE_WANDERER_EP_MODIFIER : GameConstants.WANDERER_EP_MODIFIER);
             partyPokemon.effortPoints += App.game.party.calculateEffortPoints(partyPokemon, wanderer.shiny, undefined, wandererEPGain);
             const fakedRoute = FarmController.wandererToRoute(wanderer.name);
-            Battle.gainTokens(fakedRoute.number, fakedRoute.region, wanderer.pokeball());
+            Battle.gainTokens(fakedRoute.number, fakedRoute.region, undefined, wanderer.pokeball());
             plot.wanderer = undefined;
             return;
         } else if (wanderer.shiny) { // Failed to catch, Shiny

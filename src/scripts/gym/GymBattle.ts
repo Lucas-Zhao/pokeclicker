@@ -38,7 +38,7 @@ class GymBattle extends Battle {
         App.game.breeding.progressEggsBattle(this.gym.badgeReward * 3 + 1, GameConstants.Region.none);
 
 
-        if (this.leftIndex() >= this.gym.getPokemonList().length && this.rightIndex() >= this.gym.getPokemonList().length) { 
+        if (this.leftIndex() >= this.gym.getPokemonList().length && this.rightIndex() >= this.gym.getPokemonList().length) {
             GymRunner.gymWon(this.gym);
         } else {
             this.generateNewEnemy(left);
@@ -52,16 +52,16 @@ class GymBattle extends Battle {
     public static generateNewEnemy(left = true) {
         this.counter = 0;
 
-        let index = left ? this.leftIndex() : this.rightIndex();
-        let newPokemon = left ? this.leftEnemyPokemon : this.rightEnemyPokemon;
+        const index = left ? this.leftIndex() : this.rightIndex();
+        const newPokemon = left ? this.leftEnemyPokemon : this.rightEnemyPokemon;
 
         if (index < this.gym.getPokemonList().length) {
-            newPokemon(PokemonFactory.generateGymPokemon(this.gym, index))
-        }       
+            newPokemon(PokemonFactory.generateGymPokemon(this.gym, index));
+        }
     }
 
     public static pokemonsDefeatedComputable: KnockoutComputed<number> = ko.pureComputed(() => {
-        var defeated = Math.max(
+        const defeated = Math.max(
             Math.min(GymBattle.leftIndex(), GymBattle.gym.getPokemonList().length),
             Math.min(GymBattle.doubleBattle ? GymBattle.rightIndex() : 0, GymBattle.gym.getPokemonList().length))
             - (GymBattle.doubleBattle ? 1 : 0);
@@ -69,6 +69,6 @@ class GymBattle extends Battle {
     });
 
     public static pokemonsUndefeatedComputable: KnockoutComputed<number> = ko.pureComputed(() => {
-        return GymBattle.totalPokemons() - GymBattle.pokemonsDefeatedComputable()
+        return GymBattle.totalPokemons() - GymBattle.pokemonsDefeatedComputable();
     })
 }

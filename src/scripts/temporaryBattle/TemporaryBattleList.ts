@@ -951,7 +951,7 @@ TemporaryBattleList['Clown Jessie & James'] = new TemporaryBattle(
     undefined,
     {
         displayName: 'Jessie & James',
-        doubleBattle: true
+        doubleBattle: true,
     }
 );
 TemporaryBattleList['Butler 1'] = new TemporaryBattle(
@@ -1042,7 +1042,7 @@ TemporaryBattleList.Willie = new TemporaryBattle(
     {
         displayName: 'Willie',
         imageName: 'Willie',
-        doubleBattle: true
+        doubleBattle: true,
     }
 );
 TemporaryBattleList.Folly = new TemporaryBattle(
@@ -1057,7 +1057,7 @@ TemporaryBattleList.Folly = new TemporaryBattle(
     {
         displayName: 'Shady Guy',
         imageName: 'Miror B. Peon (folly)',
-        doubleBattle: true
+        doubleBattle: true,
     }
 );
 TemporaryBattleList['Cipher Peon Doven'] = new TemporaryBattle(
@@ -1072,7 +1072,7 @@ TemporaryBattleList['Cipher Peon Doven'] = new TemporaryBattle(
     {
         displayName: 'Cipher Peon Doven',
         imageName: 'Cipher Peon (female)',
-        doubleBattle: true
+        doubleBattle: true,
     }
 );
 TemporaryBattleList['Cipher Peon Silton'] = new TemporaryBattle(
@@ -1087,7 +1087,7 @@ TemporaryBattleList['Cipher Peon Silton'] = new TemporaryBattle(
     {
         displayName: 'Cipher Peon Silton',
         imageName: 'Cipher Peon (male)',
-        doubleBattle: true
+        doubleBattle: true,
     }
 );
 TemporaryBattleList['Cipher Peon Kass'] = new TemporaryBattle(
@@ -1103,7 +1103,7 @@ TemporaryBattleList['Cipher Peon Kass'] = new TemporaryBattle(
     {
         displayName: 'Cipher Peon Kass',
         imageName: 'Cipher Peon (female)',
-        doubleBattle: true
+        doubleBattle: true,
     }
 );
 TemporaryBattleList['Cipher Peon Naps'] = new TemporaryBattle(
@@ -1115,7 +1115,7 @@ TemporaryBattleList['Cipher Peon Naps'] = new TemporaryBattle(
     {
         displayName: 'Cipher Peon Naps',
         imageName: 'Cipher Peon (yellow)',
-        doubleBattle: true
+        doubleBattle: true,
     }
 );
 TemporaryBattleList['Chobin 1'] = new TemporaryBattle(
@@ -1155,7 +1155,7 @@ TemporaryBattleList['Miror B. 1'] = new TemporaryBattle(
                 setting: NotificationConstants.NotificationSetting.Dungeons.rare_dungeon_item_found,
             });
         },
-        doubleBattle: true
+        doubleBattle: true,
     }
 );
 TemporaryBattleList['Chobin 2'] = new TemporaryBattle(
@@ -1172,7 +1172,7 @@ TemporaryBattleList['Chobin 2'] = new TemporaryBattle(
     {
         displayName: 'Chobin',
         imageName: 'Robo Groudon',
-        doubleBattle: true
+        doubleBattle: true,
     }
 );
 TemporaryBattleList['Cipher Peon Smarton'] = new TemporaryBattle(
@@ -1189,7 +1189,7 @@ TemporaryBattleList['Cipher Peon Smarton'] = new TemporaryBattle(
     {
         displayName: 'Cipher Peon Smarton',
         imageName: 'Cipher Peon (yellow)',
-        doubleBattle: true
+        doubleBattle: true,
     }
 );
 TemporaryBattleList.Zook = new TemporaryBattle(
@@ -1208,7 +1208,7 @@ TemporaryBattleList.Zook = new TemporaryBattle(
         displayName: 'Zook',
         imageName: 'Thug',
         returnTown: 'Pyrite Town',
-        doubleBattle: true
+        doubleBattle: true,
     }
 );
 TemporaryBattleList['Miror B. 2'] = new TemporaryBattle(
@@ -1226,7 +1226,7 @@ TemporaryBattleList['Miror B. 2'] = new TemporaryBattle(
     {
         displayName: 'Miror B.',
         imageName: 'Cipher Admin Miror B',
-        doubleBattle: true
+        doubleBattle: true,
     }
 );
 TemporaryBattleList['Sevii Rocket Grunt 1'] = new TemporaryBattle(
@@ -1357,7 +1357,7 @@ TemporaryBattleList['Pinkan Jessie & James'] = new TemporaryBattle(
     undefined,
     {
         displayName: 'Jessie & James',
-        doubleBattle: true
+        doubleBattle: true,
     }
 );
 TemporaryBattleList['Pinkan Officer Jenny'] = new TemporaryBattle(
@@ -2121,7 +2121,7 @@ TemporaryBattleList['Ghetsis 1'] = new TemporaryBattle(
     {
         displayName: 'Ghetsis',
         imageName: 'Ghetsis',
-        doubleBattle: true
+        doubleBattle: true,
     }
 );
 TemporaryBattleList['Ghetsis 2'] = new TemporaryBattle(
@@ -2432,7 +2432,7 @@ TemporaryBattleList['Trevor & Tierno'] = new TemporaryBattle(
     {
         displayName: 'Pokémon Trainer Trevor & Pokémon Trainer Tierno',
         returnTown: 'Camphrier Town',
-        doubleBattle: true
+        doubleBattle: true,
     }
 );
 TemporaryBattleList['Team Flare Grunt 1'] = new TemporaryBattle(
@@ -3104,7 +3104,7 @@ TemporaryBattleList['Millis and Argus Steel'] = new TemporaryBattle(
     [new QuestLineStepCompletedRequirement('Princess Diancie', 3)],
     undefined,
     {
-        doubleBattle: true
+        doubleBattle: true,
     }
 );
 TemporaryBattleList['Rampaging Yveltal'] = new TemporaryBattle(
@@ -4911,7 +4911,7 @@ TemporaryBattleList.Mirages = new TemporaryBattle(
     {
         hideTrainer: true,
         imageName: 'specialNPCs/Mirages',
-        doubleBattle: true
+        doubleBattle: true,
     }
 );
 TemporaryBattleList['Hop 2'] = new TemporaryBattle(
@@ -5234,7 +5234,7 @@ TemporaryBattleList['Sordward & Shielbert'] = new TemporaryBattle(
     [new QuestLineStepCompletedRequirement('Sword and Shield', 7)],
     undefined,
     {
-        doubleBattle: true
+        doubleBattle: true,
     }
 );
 TemporaryBattleList['Rampaging Conkeldurr'] = new TemporaryBattle(

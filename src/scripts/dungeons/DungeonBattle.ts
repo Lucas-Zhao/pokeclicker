@@ -12,8 +12,8 @@ class DungeonBattle extends Battle {
     public static remainingTrainerPokemon: KnockoutComputed<number> = ko.pureComputed(() => {
         if (!DungeonBattle.trainer()) {
             return 0;
-        }       
-        return DungeonBattle.trainer().getTeam().length - DungeonBattle.defeatedTrainerPokemon()
+        }
+        return DungeonBattle.trainer().getTeam().length - DungeonBattle.defeatedTrainerPokemon();
 
     });
 
@@ -25,7 +25,7 @@ class DungeonBattle extends Battle {
         return Math.max(
             Math.min(DungeonBattle.leftTrainerPokemonIndex(), DungeonBattle.trainer().getTeam().length),
             Math.min(DungeonBattle.doubleBattle ? DungeonBattle.rightTrainerPokemonIndex() : 0, DungeonBattle.trainer().getTeam().length))
-            -(DungeonBattle.doubleBattle ? 1 : 0)
+            - (DungeonBattle.doubleBattle ? 1 : 0);
     });
 
     /**
@@ -68,7 +68,7 @@ class DungeonBattle extends Battle {
             this.prepareCatch(enemyPokemon, pokeBall, left);
             setTimeout(
                 () => {
-                    this.attemptCatch(enemyPokemon, route, region, left);                  
+                    this.attemptCatch(enemyPokemon, route, region, left);
                     if (DungeonRunner.defeatedBoss()) {
                         DungeonRunner.dungeonWon();
                     }
@@ -88,7 +88,7 @@ class DungeonBattle extends Battle {
         const enemyPokemon = left ? this.leftEnemyPokemon() : this.rightEnemyPokemon();
 
         enemyPokemon.defeat(true);
-        
+
         if (left) {
             this.leftTrainerPokemonIndex(this.rightTrainerPokemonIndex() > this.leftTrainerPokemonIndex() && this.doubleBattle ? this.rightTrainerPokemonIndex() + 1 : this.leftTrainerPokemonIndex() + 1);
         } else {
@@ -125,7 +125,7 @@ class DungeonBattle extends Battle {
     private static nextTrainerPokemon(left = true) {
         // No Pokemon left, trainer defeated
         if (this.trainer()) {
-            if(this.leftTrainerPokemonIndex() >= this.trainer().getTeam().length && this.rightTrainerPokemonIndex() >= this.trainer().getTeam().length) {
+            if (this.leftTrainerPokemonIndex() >= this.trainer().getTeam().length && this.rightTrainerPokemonIndex() >= this.trainer().getTeam().length) {
                 // rewards for defeating trainer
                 if (this.trainer().options.reward) {
                     // Custom reward amount on defeat
@@ -147,8 +147,8 @@ class DungeonBattle extends Battle {
                 }
                 this.trainer(null);
                 this.trainerPokemonIndex(0);
-                this.leftTrainerPokemonIndex(0)
-                this.rightTrainerPokemonIndex(0)
+                this.leftTrainerPokemonIndex(0);
+                this.rightTrainerPokemonIndex(0);
                 this.doubleBattle = false;
                 // Clearing Dungeon tile
                 DungeonRunner.map.currentTile().type(GameConstants.DungeonTile.empty);
@@ -174,7 +174,7 @@ class DungeonBattle extends Battle {
         // Finding enemy from enemyList
         const enemy = Rand.fromWeightedArray(DungeonRunner.dungeon.availableMinions(), DungeonRunner.dungeon.weightList);
         // Pokemon
-        if (typeof enemy === 'string' || enemy.hasOwnProperty('pokemon')) {            
+        if (typeof enemy === 'string' || enemy.hasOwnProperty('pokemon')) {
             const pokemon = (typeof enemy === 'string') ? enemy : (<DetailedPokemon>enemy).pokemon;
             const enemyPokemon = PokemonFactory.generateDungeonPokemon(pokemon, DungeonRunner.chestsOpened(), DungeonRunner.dungeon.baseHealth, DungeonRunner.dungeonLevel());
             this.leftEnemyPokemon(enemyPokemon);
@@ -259,16 +259,16 @@ class DungeonBattle extends Battle {
      */
     public static generateTrainerPokemon(left = true) {
         this.counter = 0;
-      
-        let sideIndex = left ? this.leftTrainerPokemonIndex() : this.rightTrainerPokemonIndex();
+
+        const sideIndex = left ? this.leftTrainerPokemonIndex() : this.rightTrainerPokemonIndex();
         if (sideIndex < this.trainer().getTeam().length) {
-            let sideNewPokemon = left ? this.leftEnemyPokemon : this.rightEnemyPokemon;
+            const sideNewPokemon = left ? this.leftEnemyPokemon : this.rightEnemyPokemon;
             const pokemon = this.trainer().getTeam()[sideIndex];
             const baseHealth = DungeonRunner.fightingBoss() ? pokemon.maxHealth : DungeonRunner.dungeon.baseHealth;
             const level = DungeonRunner.fightingBoss() ? pokemon.level : DungeonRunner.dungeonLevel();
             const enemyPokemon = PokemonFactory.generateDungeonTrainerPokemon(pokemon, DungeonRunner.chestsOpened(), baseHealth, level, DungeonRunner.fightingBoss());
 
-            sideNewPokemon(enemyPokemon)
+            sideNewPokemon(enemyPokemon);
         }
     }
 
