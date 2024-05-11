@@ -14,9 +14,9 @@ class TemporaryBattleBattle extends Battle {
         }
     }
 
-    public static clickAttack() {
+    public static clickAttack(left) {
         if (TemporaryBattleRunner.running()) {
-            super.clickAttack();
+            super.clickAttack(left);
         }
     }
 

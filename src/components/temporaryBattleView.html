@@ -47,13 +47,7 @@
                     <knockout data-bind="template: { name: 'pokemonSpriteTemplate', data: { 'pokemon': TemporaryBattleBattle.leftEnemyPokemon() } }">Pokémon sprite</knockout>
                 </div>
             </div>
-            <!-- ko if: TemporaryBattleBattle.doubleBattle -->
-            <div data-bind="ifnot: TemporaryBattleBattle.catchingRight">
-                <div class="enemyPokemon" data-bind="click: function() {TemporaryBattleBattle.clickAttack(false)}">
-                    <knockout data-bind="template: { name: 'pokemonSpriteTemplate', data: { 'pokemon': TemporaryBattleBattle.rightEnemyPokemon() } }">Pokémon sprite</knockout>
-                </div>
-            </div>
-            <!-- /ko -->
+
 
             <div data-bind="if: (TemporaryBattleBattle.catchingLeft)" class="catchChance">
                 <img class="pokeball-animated"
@@ -63,6 +57,15 @@
                 Catch Chance:
                 <knockout data-bind="text: Math.floor(TemporaryBattleBattle.catchRateActualLeft()) + '%'">Catch Rate</knockout>
             </div>
+
+            <!-- ko if: TemporaryBattleBattle.doubleBattle -->
+            <div data-bind="ifnot: TemporaryBattleBattle.catchingRight">
+                <div class="enemyPokemon" data-bind="click: function() {TemporaryBattleBattle.clickAttack(false)}">
+                    <knockout data-bind="template: { name: 'pokemonSpriteTemplate', data: { 'pokemon': TemporaryBattleBattle.rightEnemyPokemon() } }">Pokémon sprite</knockout>
+                </div>
+            </div>
+            <!-- /ko -->
+
             <div data-bind="if: (TemporaryBattleBattle.catchingRight)" class="catchChance catchingRight">
                 <img class="pokeball-animated"
                      data-bind="attr:{ src: 'assets/images/pokeball/' + GameConstants.Pokeball[TemporaryBattleBattle.pokeballRight()] + '.svg' }"

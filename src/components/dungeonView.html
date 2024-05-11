@@ -2,7 +2,7 @@
     <div class="col no-gutters clickable" style="height: 280px; display: block;"
         data-bind="click: function() { DungeonRunner.handleInteraction() }">
         <h2 class="pageItemTitle mobileBattleTitle" style="display: block;">
-            <knockout data-bind="if: DungeonBattle.leftEnemyPokemon() && DungeonBattle.leftEnemyPokemon().health()">
+            <knockout data-bind="if: DungeonBattle.leftEnemyPokemon()">
                 <knockout data-bind="template: { name: 'pokemonNameTemplate', data: { 'pokemon': DungeonBattle.leftEnemyPokemon() } }">Pokémon name</knockout>
                 <!-- ko if: !DungeonBattle.trainer() -->
                 <knockout data-bind="template: { name: 'caughtStatusTemplate', data: {'status': PartyController.getCaughtStatus(DungeonBattle.leftEnemyPokemon().id)}}"></knockout>
@@ -59,17 +59,6 @@
                 <img data-bind="attr:{ src: DungeonBattle.trainer().image }" onerror="this.src='assets/images/npcs/specialNPCs/Mysterious Trainer.png';"/>
             </div>
             <div class="dungeon-enemy">
-                <!--<div data-bind="ifnot: DungeonBattle.catching">
-                    <knockout data-bind="template: { name: 'pokemonSpriteTemplate', data: { 'pokemon': DungeonBattle.leftEnemyPokemon() } }">Pokémon sprite</knockout>
-                </div>
-                <div data-bind="if: DungeonBattle.catching" class="catchChance">
-                    <img class="pokeball-animated"
-                         data-bind="attr:{ src: 'assets/images/pokeball/' + GameConstants.Pokeball[DungeonBattle.pokeball()] + '.svg' }"
-                         src=""/>
-                    <br>
-                    Catch Chance:
-                    <knockout data-bind="text: Math.floor(DungeonBattle.catchRateActual()) + '%'">Catch Rate</knockout>
-                </div>-->
                 <div data-bind="ifnot: DungeonBattle.catchingLeft">
                     <div class="enemyPokemon" data-bind="click: function() {DungeonBattle.clickAttack(true)}">
                         <knockout data-bind="template: { name: 'pokemonSpriteTemplate', data: { 'pokemon': DungeonBattle.leftEnemyPokemon() } }">Pokémon sprite</knockout>

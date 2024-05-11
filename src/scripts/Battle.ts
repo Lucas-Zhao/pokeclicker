@@ -61,7 +61,7 @@ class Battle {
      * Attacks with clicks and checks if the enemy is defeated.
      */
     public static clickAttack(left = true) {
-        
+
         // click attacks disabled and we already beat the starter
         if (App.game.challenges.list.disableClickAttack.active() && player.regionStarters[GameConstants.Region.kanto]() != GameConstants.Starter.None) {
             return;
@@ -84,7 +84,7 @@ class Battle {
             return;
         }
 
-        attackedPokemon.damage(App.game.party.calculateClickAttack(true));        
+        attackedPokemon.damage(App.game.party.calculateClickAttack(true));
 
         this.lastClickAttack = now;
 
@@ -124,7 +124,7 @@ class Battle {
                 },
                 App.game.pokeballs.calculateCatchTime(pokeBall)
             )
-                ;
+            ;
 
         } else {
             this.generateNewEnemy();
@@ -175,9 +175,9 @@ class Battle {
     }
 
     protected static prepareCatch(enemyPokemon: BattlePokemon, pokeBall: GameConstants.Pokeball, left = true) {
-        let sidePokeball = left ? this.pokeballLeft : this.pokeballRight;
-        let sideCatching = left ? this.catchingLeft : this.catchingRight;
-        let sideCatchRate = left ? this.catchRateActualLeft : this.catchRateActualRight;
+        const sidePokeball = left ? this.pokeballLeft : this.pokeballRight;
+        const sideCatching = left ? this.catchingLeft : this.catchingRight;
+        const sideCatchRate = left ? this.catchRateActualLeft : this.catchRateActualRight;
 
         sidePokeball(pokeBall);
         sideCatching(true);
@@ -186,8 +186,8 @@ class Battle {
     }
 
     protected static attemptCatch(enemyPokemon: BattlePokemon, route: number, region: GameConstants.Region, left = true) {
-        let sideCatching = left ? this.catchingLeft : this.catchingRight;
-        let sideCatchRate = left ? this.catchRateActualLeft : this.catchRateActualRight;
+        const sideCatching = left ? this.catchingLeft : this.catchingRight;
+        const sideCatchRate = left ? this.catchRateActualLeft : this.catchRateActualRight;
 
         if (enemyPokemon == null) {
             sideCatching(false);
@@ -213,7 +213,7 @@ class Battle {
     }
 
     public static catchPokemon(enemyPokemon: BattlePokemon, route: number, region: GameConstants.Region, left = true) {
-        let sidePokeball = left ? this.pokeballLeft : this.pokeballRight;
+        const sidePokeball = left ? this.pokeballLeft : this.pokeballRight;
 
         this.gainTokens(route, region, left);
         App.game.oakItems.use(OakItemType.Magic_Ball);
@@ -264,15 +264,18 @@ class Battle {
     }
 
     public static pokemonAttackTooltip: KnockoutComputed<string> = ko.pureComputed(() => {
-        var toolTip = '';
+        let toolTip = '';
         if (Battle.leftEnemyPokemon() && Battle.leftEnemyPokemon().health() > 0) {
-            const leftPokemonAttack = App.game.party.calculatePokemonAttack(Battle.leftEnemyPokemon().type1, Battle.leftEnemyPokemon().type2);
+            let leftPokemonAttack = App.game.party.calculatePokemonAttack(Battle.leftEnemyPokemon().type1, Battle.leftEnemyPokemon().type2);
+            leftPokemonAttack = leftPokemonAttack * (Battle.rightEnemyPokemon()?.isAlive() ? GameConstants.DOUBLE_BATTLE_MULTIPLIER : 1);
             toolTip = `${leftPokemonAttack.toLocaleString('en-US')} against ${Battle.leftEnemyPokemon().displayName}`;
-            if (Battle.rightEnemyPokemon() && Battle.rightEnemyPokemon().health() > 0) {
-                const rightPokemonAttack = App.game.party.calculatePokemonAttack(Battle.rightEnemyPokemon().type1, Battle.rightEnemyPokemon().type2);
-                toolTip += `\n${rightPokemonAttack.toLocaleString('en-US')} against ${Battle.rightEnemyPokemon().displayName}`;
-            }
         }
+        if (Battle.rightEnemyPokemon() && Battle.rightEnemyPokemon().health() > 0) {
+            let rightPokemonAttack = App.game.party.calculatePokemonAttack(Battle.rightEnemyPokemon().type1, Battle.rightEnemyPokemon().type2);
+            rightPokemonAttack = rightPokemonAttack * (Battle.leftEnemyPokemon()?.isAlive() ? GameConstants.DOUBLE_BATTLE_MULTIPLIER : 1);
+            toolTip += `\n${rightPokemonAttack.toLocaleString('en-US')} against ${Battle.rightEnemyPokemon().displayName}`;
+        }
+
         return toolTip;
     }).extend({ rateLimit: 1000 });
 
