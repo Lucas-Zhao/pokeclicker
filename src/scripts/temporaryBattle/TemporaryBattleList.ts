@@ -940,11 +940,11 @@ TemporaryBattleList['Wally 2'] = new TemporaryBattle(
 TemporaryBattleList['Clown Jessie & James'] = new TemporaryBattle(
     'Clown Jessie & James',
     [
-        new GymPokemon('Victreebel', 3006000, 40),
-        new GymPokemon('Weezing', 3006000, 50),
-        new GymPokemon('Seviper', 3006000, 50),
-        new GymPokemon('Dustox', 3006000, 50),
-        new GymPokemon('Meowth', 2000, 5),
+        new GymPokemon('Victreebel', 4509000, 40),
+        new GymPokemon('Weezing', 4509000, 50),
+        new GymPokemon('Seviper', 4509000, 50),
+        new GymPokemon('Dustox', 4509000, 50),
+        new GymPokemon('Meowth', 3000, 5),
     ],
     'We\'re blasting off again!!!!',
     [new QuestLineStepCompletedRequirement('Wish Maker', 0)],
@@ -1033,8 +1033,8 @@ TemporaryBattleList.Latios = new TemporaryBattle(
 TemporaryBattleList.Willie = new TemporaryBattle(
     'Willie',
     [
-        new GymPokemon('Zigzagoon', 6900000, 24),
-        new GymPokemon('Zigzagoon', 6900000, 24),
+        new GymPokemon('Zigzagoon', 10350000, 24),
+        new GymPokemon('Zigzagoon', 10350000, 24),
     ],
     'Whew! With skills like that, y\'all should head to Phenac City.',
     [new QuestLineStepCompletedRequirement('Shadows in the Desert', 0)],
@@ -1048,8 +1048,8 @@ TemporaryBattleList.Willie = new TemporaryBattle(
 TemporaryBattleList.Folly = new TemporaryBattle(
     'Folly',
     [
-        new GymPokemon('Whismur', 6950000, 25),
-        new GymPokemon('Whismur', 6950000, 25),
+        new GymPokemon('Whismur', 10425000, 25),
+        new GymPokemon('Whismur', 10425000, 25),
     ],
     '<i>The shady guy flees, dropping a mysterious sack. The sack.... cries out in pain?</i>',
     [new QuestLineStepCompletedRequirement('Shadows in the Desert', 1)],
@@ -1063,8 +1063,8 @@ TemporaryBattleList.Folly = new TemporaryBattle(
 TemporaryBattleList['Cipher Peon Doven'] = new TemporaryBattle(
     'Cipher Peon Doven',
     [
-        new GymPokemon('Spheal', 7300000, 33),
-        new GymPokemon('Carvanha', 7300000, 34),
+        new GymPokemon('Spheal', 10950000, 33),
+        new GymPokemon('Carvanha', 10950000, 34),
     ],
     'Rats! Foiled by some nobody!',
     [new QuestLineStepCompletedRequirement('Shadows in the Desert', 14)],
@@ -1078,8 +1078,8 @@ TemporaryBattleList['Cipher Peon Doven'] = new TemporaryBattle(
 TemporaryBattleList['Cipher Peon Silton'] = new TemporaryBattle(
     'Cipher Peon Silton',
     [
-        new GymPokemon('Shroomish', 7300000, 34),
-        new GymPokemon('Cacnea', 7300000, 34),
+        new GymPokemon('Shroomish', 10950000, 34),
+        new GymPokemon('Cacnea', 10950000, 34),
     ],
     'Man! I was really having fun doing these crimes.',
     [new QuestLineStepCompletedRequirement('Shadows in the Desert', 14)],
@@ -1093,9 +1093,9 @@ TemporaryBattleList['Cipher Peon Silton'] = new TemporaryBattle(
 TemporaryBattleList['Cipher Peon Kass'] = new TemporaryBattle(
     'Cipher Peon Kass',
     [
-        new GymPokemon('Baltoy', 4900000, 35),
-        new GymPokemon('Ralts', 4900000, 35),
-        new GymPokemon('Kirlia', 4900000, 35),
+        new GymPokemon('Baltoy', 7350000, 35),
+        new GymPokemon('Ralts', 7350000, 35),
+        new GymPokemon('Kirlia', 7350000, 35),
     ],
     'Run away!',
     [new QuestLineStepCompletedRequirement('Shadows in the Desert', 14)],
@@ -1114,8 +1114,7 @@ TemporaryBattleList['Cipher Peon Naps'] = new TemporaryBattle(
     undefined,
     {
         displayName: 'Cipher Peon Naps',
-        imageName: 'Cipher Peon (yellow)',
-        doubleBattle: true,
+        imageName: 'Cipher Peon (yellow)'
     }
 );
 TemporaryBattleList['Chobin 1'] = new TemporaryBattle(
@@ -1135,10 +1134,10 @@ TemporaryBattleList['Chobin 1'] = new TemporaryBattle(
 TemporaryBattleList['Miror B. 1'] = new TemporaryBattle(
     'Miror B. 1',
     [
-        new GymPokemon('Lombre', 34444125, 17),
-        new GymPokemon('Lombre', 34444125, 17),
-        new GymPokemon('Lombre', 34444125, 17),
-        new GymPokemon('Voltorb', 34444125, 19, undefined, undefined, GameConstants.ShadowStatus.Shadow),
+        new GymPokemon('Lombre', 51666188, 17),
+        new GymPokemon('Lombre', 51666188, 17),
+        new GymPokemon('Lombre', 51666188, 17),
+        new GymPokemon('Voltorb', 51666188, 19, undefined, undefined, GameConstants.ShadowStatus.Shadow),
     ],
     'You messed up my rhythm! I just can\'t, no, I just can\'t do it! Shouldn\'t you be paying more attention to what\'s happening in the Pyrite Buiding than to me?',
     [new QuestLineStepCompletedRequirement('Gale of Darkness', 9)],
@@ -1161,10 +1160,10 @@ TemporaryBattleList['Miror B. 1'] = new TemporaryBattle(
 TemporaryBattleList['Chobin 2'] = new TemporaryBattle(
     'Chobin 2',
     [
-        new GymPokemon('Sunflora', 48221775, 26),
-        new GymPokemon('Gyarados', 48221775, 26),
-        new GymPokemon('Hoppip', 48221775, 26),
-        new GymPokemon('Tropius', 48221775, 26),
+        new GymPokemon('Sunflora', 72332663, 26),
+        new GymPokemon('Gyarados', 72332663, 26),
+        new GymPokemon('Hoppip', 72332663, 26),
+        new GymPokemon('Tropius', 72332663, 26),
     ],
     'Huh? Oh, you\'re that trainer from before?! Chobin wishes you spoke up right away.',
     [new QuestLineStepCompletedRequirement('Gale of Darkness', 17)],
@@ -1178,10 +1177,10 @@ TemporaryBattleList['Chobin 2'] = new TemporaryBattle(
 TemporaryBattleList['Cipher Peon Smarton'] = new TemporaryBattle(
     'Cipher Peon Smarton',
     [
-        new GymPokemon('Huntail', 49221775, 27),
-        new GymPokemon('Cacnea', 49221775, 27),
-        new GymPokemon('Teddiursa', 49221775, 27),
-        new GymPokemon('Koffing', 49221775, 27),
+        new GymPokemon('Huntail', 73832663, 27),
+        new GymPokemon('Cacnea', 73832663, 27),
+        new GymPokemon('Teddiursa', 73832663, 27),
+        new GymPokemon('Koffing', 73832663, 27),
     ],
     'You\'re too late! We already took everything we needed!',
     [new QuestLineStepCompletedRequirement('Gale of Darkness', 19)],
@@ -1195,11 +1194,11 @@ TemporaryBattleList['Cipher Peon Smarton'] = new TemporaryBattle(
 TemporaryBattleList.Zook = new TemporaryBattle(
     'Zook',
     [
-        new GymPokemon('Zangoose', 35797654, 28, undefined, undefined, GameConstants.ShadowStatus.Shadow),
-        new GymPokemon('Doduo', 35797654, 26),
-        new GymPokemon('Carvanha', 35797654, 26),
-        new GymPokemon('Seviper', 35797654, 26),
-        new GymPokemon('Relicanth', 35797654, 26),
+        new GymPokemon('Zangoose', 53696481, 28, undefined, undefined, GameConstants.ShadowStatus.Shadow),
+        new GymPokemon('Doduo', 53696481, 26),
+        new GymPokemon('Carvanha', 53696481, 26),
+        new GymPokemon('Seviper', 53696481, 26),
+        new GymPokemon('Relicanth', 53696481, 26),
     ],
     'Yeah, whatever! I was leaving anyways.',
     [new QuestLineStepCompletedRequirement('Gale of Darkness', 21)],
@@ -1214,11 +1213,11 @@ TemporaryBattleList.Zook = new TemporaryBattle(
 TemporaryBattleList['Miror B. 2'] = new TemporaryBattle(
     'Miror B. 2',
     [
-        new GymPokemon('Lombre', 38797654, 26),
-        new GymPokemon('Lombre', 38797654, 26),
-        new GymPokemon('Lombre', 38797654, 26),
-        new GymPokemon('Nosepass', 38797654, 25, undefined, undefined, GameConstants.ShadowStatus.Shadow),
-        new GymPokemon('Ludicolo', 38797654, 26),
+        new GymPokemon('Lombre', 58196481, 26),
+        new GymPokemon('Lombre', 58196481, 26),
+        new GymPokemon('Lombre', 58196481, 26),
+        new GymPokemon('Nosepass', 58196481, 25, undefined, undefined, GameConstants.ShadowStatus.Shadow),
+        new GymPokemon('Ludicolo', 58196481, 26),
     ],
     'I shouldn\'t have done something this strenuous right after eating… I\'ll need to get some new Shadow Pokémon from Team Snagem.',
     [new QuestLineStepCompletedRequirement('Gale of Darkness', 22)],
@@ -1347,10 +1346,10 @@ TemporaryBattleList['Scientist Gideon'] = new TemporaryBattle(
 TemporaryBattleList['Pinkan Jessie & James'] = new TemporaryBattle(
     'Pinkan Jessie & James',
     [
-        new GymPokemon('Lickitung', 2000000, 40),
-        new GymPokemon('Pinkan Weezing', 3000000, 50),
-        new GymPokemon('Pinkan Arbok', 3000000, 50),
-        new GymPokemon('Meowth', 2000, 5),
+        new GymPokemon('Lickitung', 3000000, 40),
+        new GymPokemon('Pinkan Weezing', 4500000, 50),
+        new GymPokemon('Pinkan Arbok', 4500000, 50),
+        new GymPokemon('Meowth', 3000, 5),
     ],
     'We\'re blasting off again!!!!',
     [new QuestLineStepCompletedRequirement('Team Rocket\'s Pinkan Theme Park', 4)],
@@ -2107,8 +2106,8 @@ TemporaryBattleList['Plasma Shadow 4'] = new TemporaryBattle(
 TemporaryBattleList['Ghetsis 1'] = new TemporaryBattle(
     'Ghetsis 1',
     [
-        new GymPokemon('Kyurem (Black)', 43933198, 50),
-        new GymPokemon('Kyurem (White)', 43933198, 50),
+        new GymPokemon('Kyurem (Black)', 65899797, 50),
+        new GymPokemon('Kyurem (White)', 65899797, 50),
     ],
     'I can\'t believe it! The Black and White Kyurem I went to all the trouble of preparing! How irritating! Now I have to go recapture Kyurem, don\'t I? But first, I\'ll take down this disgusting Trainer with my own hand! This time I WILL succeed! No matter what they try, no one will be able to stop me!',
     [
@@ -2422,9 +2421,9 @@ TemporaryBattleList['Tierno 1'] = new TemporaryBattle(
 TemporaryBattleList['Trevor & Tierno'] = new TemporaryBattle(
     'Trevor & Tierno',
     [
-        new GymPokemon('Pikachu', 23154377, 14),
-        new GymPokemon('Corphish', 23856025, 16),
-        new GymPokemon('Flabébé (Orange)', 23154377, 14),
+        new GymPokemon('Pikachu', 34731566, 14),
+        new GymPokemon('Corphish', 35784038, 16),
+        new GymPokemon('Flabébé (Orange)', 34731566, 14),
     ],
     'So you can\'t learn everything just from the Pokédex... I see!',
     [new RouteKillRequirement(10, GameConstants.Region.kalos, 7)],
@@ -3095,10 +3094,10 @@ TemporaryBattleList.Merilyn = new TemporaryBattle(
 TemporaryBattleList['Millis and Argus Steel'] = new TemporaryBattle(
     'Millis and Argus Steel',
     [
-        new GymPokemon('Honedge', 107376526, 70),
-        new GymPokemon('Doublade', 110485698, 70),
-        new GymPokemon('Aegislash (Blade)', 110510597, 70),
-        new GymPokemon('Chesnaught', 111743528, 70),
+        new GymPokemon('Honedge', 161064789, 70),
+        new GymPokemon('Doublade', 165728547, 70),
+        new GymPokemon('Aegislash (Blade)', 165765896, 70),
+        new GymPokemon('Chesnaught', 167615292, 70),
     ],
     'Our plans are ruined! Retreat!',
     [new QuestLineStepCompletedRequirement('Princess Diancie', 3)],
@@ -4902,8 +4901,8 @@ TemporaryBattleList['Hop 1'] = new TemporaryBattle(
 TemporaryBattleList.Mirages = new TemporaryBattle(
     'Mirages',
     [
-        new GymPokemon('Zacian (Battle Hero)', 155623424, 70),
-        new GymPokemon('Zamazenta (Battle Hero)', 155623424, 70),
+        new GymPokemon('Zacian (Battle Hero)', 233435136, 70),
+        new GymPokemon('Zamazenta (Battle Hero)', 233435136, 70),
     ],
     '<i>The Pokémon fled.</i>',
     [new TemporaryBattleRequirement('Hop 1')],
@@ -5223,12 +5222,12 @@ TemporaryBattleList['Rampaging Torkoal'] = new TemporaryBattle(
 TemporaryBattleList['Sordward & Shielbert'] = new TemporaryBattle(
     'Sordward & Shielbert',
     [
-        new GymPokemon('Golisopod', 432185147, 62),
-        new GymPokemon('Bronzong', 432185147, 62),
-        new GymPokemon('Doublade', 432185147, 62),
-        new GymPokemon('Falinks', 432185147, 62),
-        new GymPokemon('Bisharp', 449825356, 62),
-        new GymPokemon('Klinklang', 449825356, 62),
+        new GymPokemon('Golisopod', 648277721, 62),
+        new GymPokemon('Bronzong', 648277721, 62),
+        new GymPokemon('Doublade', 648277721, 62),
+        new GymPokemon('Falinks', 648277721, 62),
+        new GymPokemon('Bisharp', 674738034, 62),
+        new GymPokemon('Klinklang', 674738034, 62),
     ],
     'Quite the vexing predicament indeed, surely this must be some kind of mistake...',
     [new QuestLineStepCompletedRequirement('Sword and Shield', 7)],
