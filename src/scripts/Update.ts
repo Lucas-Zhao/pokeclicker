@@ -2704,6 +2704,10 @@ class Update implements Saveable {
 
             // The NewYLayer upgrades has been refactored to Items_All, copy the level
             saveData.underground.upgrades.Items_All = saveData.underground.upgrades.NewYLayer;
+
+            // Held item setting change
+            settingsData.heldItemHideHoldingThisItem = settingsData.heldItemShowHoldingThisItem;
+            delete settingsData.heldItemShowHoldingThisItem;
         },
     };
 
