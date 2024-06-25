@@ -550,7 +550,7 @@ export const SpriteCredits: Credit[] = [
             'Cool Couple revamps',
             'Crush Kin revamp',
             'Drake revamp',
-            'Lady revamp',
+            'Lady revamp - REPLACED',
             'May revamp',
             'Norman revamp',
             'Old Couple revamp',
@@ -685,6 +685,7 @@ export const SpriteCredits: Credit[] = [
         image: 'https://avatars.githubusercontent.com/u/14893450?v=4',
         resources: [
             'Egg Hunter',
+            'Surprise Togepi - REPLACED',
         ],
         // NOTES: Permission given via PRs
     },
@@ -694,6 +695,7 @@ export const SpriteCredits: Credit[] = [
         image: 'https://a.deviantart.net/avatars-big/j/o/jormxdos.png?8',
         resources: [
             'All Vectorized Badges images',
+            'Vectorized Ribbons',
             'Vectorized Z Crystals',
         ],
         // NOTES: Permission given in the bio comment section
@@ -702,7 +704,13 @@ export const SpriteCredits: Credit[] = [
         name: 'Jostav',
         link: 'https://discordapp.com/users/823666951565344828/',
         resources: [
+            'Bird Keeper gen3 revamp',
             'Cipher Peon (yellow)',
+            'Collector gen3 revamp',
+            'Lady revamp',
+            'Parasol Lady revamp',
+            'Triathlete gen3 (maleswimming) revamp',
+            'Twin left and right frlg',
             'XD001',
         ],
         // Notes: Made specifically for PokéClicker.
@@ -818,9 +826,10 @@ export const SpriteCredits: Credit[] = [
             'Sky Trainer (male)',
             'Team Star Grunt (female)',
             'Team Star Grunt (male)',
-            'Triathlete',
+            'Triathlete (malecycling)',
             'Tourist (female)',
             'Tourist (male)',
+            'Tuber (female)',
             'Tulip',
             'Turo',
             'Tyme',
@@ -986,6 +995,17 @@ export const SpriteCredits: Credit[] = [
             'Shauna',
         ],
         // Notes: Permission given on image page if credited.
+    },
+    {
+        name: 'PokeMMO',
+        link: 'https://pokemmo.com/en/',
+        resources: [
+            'PokeBlock_Blue',
+            'PokeBlock_Green',
+            'PokeBlock_Pink',
+            'PokeBlock_Red',
+            'PokeBlock_Yellow',
+        ],
     },
     {
         name: 'Pokemon Showdown',

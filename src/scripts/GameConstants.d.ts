@@ -39,6 +39,8 @@ namespace GameConstants {
     declare const TEMP_BATTLE_TICK: number;
     declare const SPECIAL_EVENT_TICK: number;
     declare const ZMOVE_TICK: number;
+    declare const CONTEST_TIME: number;
+    declare const CONTEST_TICK: number;
     declare const MAX_AVAILABLE_REGION: number;
     declare const MaxIDPerRegion: number[];
     declare const ITEM_USE_TIME: number;
@@ -240,7 +242,8 @@ namespace GameConstants {
         town,
         shop,
         battleFrontier,
-        temporaryBattle
+        temporaryBattle,
+        contest
     }
     declare enum Pokeball {
         'None',
@@ -316,6 +319,7 @@ namespace GameConstants {
     declare function clipNumber(num: number, min: number, max: number): number;
     declare function expRandomElement<T>(array: T[], ratio: number): T;
     declare const TypeColor: string[];
+    declare const ContestColor: string[];
     declare const ROUTE_KILLS_NEEDED: number;
     declare const ACHIEVEMENT_DEFEAT_ROUTE_VALUES: number[];
     declare const ACHIEVEMENT_DEFEAT_GYM_VALUES: number[];
@@ -475,21 +479,21 @@ namespace GameConstants {
      }
 
     declare enum PokeBlockColor {
-        Black,
+        // Black,
         Red,
         Blue,
         Pink,
         Green,
         Yellow,
-        Gold,
-        Purple,
-        Indigo,
-        Brown,
-        Light_Blue,
-        Olive,
-        Beige,
-        Gray,
-        White
+        // Gold,
+        // Purple,
+        // Indigo,
+        // Brown,
+        // Light_Blue,
+        // Olive,
+        // Beige,
+        // Gray,
+        // White
     }
     declare enum VitaminType {
         Protein,

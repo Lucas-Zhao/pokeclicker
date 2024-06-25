@@ -17,6 +17,7 @@ import type MegaStoneItem from '../items/MegaStoneItem';
 import { ItemList } from '../items/ItemList';
 import Settings from '../settings/Settings';
 import type { EvoData } from './evolutions/Base';
+import ContestType from '../enums/ContestType';
 
 // TODO remove when PokemonLocations is ported to modules
 declare class PokemonLocations {
@@ -58,6 +59,10 @@ export function getPokemonByName(name: PokemonNameType): DataPokemon {
     const type1 = basePokemon.type[0];
     const type2: PokemonType = basePokemon.type[1] ?? PokemonType.None;
 
+    const contestType1 = basePokemon.contestType[0];
+    const contestType2: ContestType = basePokemon.contestType[1] ?? ContestType.None;
+    const contestType3: ContestType = basePokemon.contestType[2] ?? ContestType.None;
+
     const eggCycles: number = basePokemon.eggCycles || 20;
     return new DataPokemon(
         basePokemon.id,
@@ -73,6 +78,9 @@ export function getPokemonByName(name: PokemonNameType): DataPokemon {
         eggCycles,
         basePokemon.heldItem,
         basePokemon.gender,
+        contestType1,
+        contestType2,
+        contestType3,
     );
 }
 
